@@ -131,6 +131,14 @@ Insérée le 2026-11-18 à la demande du développeur, après confirmation expli
   - `frontend/src/app/page.tsx` — « Vos ressources » liste `MEDIAS` en entier ; détail de carte réduit au descriptif seul.
 - Revérifié : `npm test` (2 tests, vert), `verifier-deployabilite.sh` (aucune borne), `/health` et `/sante` en `200` sur 8080, `signaler-version.sh 4` accepté.
 
+❗️ **Itération 1quater (même séquence, dernière demande avant arrêt)** : moins de 5 minutes restantes annoncées — traitée comme la toute dernière chose codée avant stabilisation. Les 4 ressources de « Vos ressources » sont devenues des boutons dépliables : au clic, chacune affiche sa note réelle issue de `focus-parcours-bba-bib.pdf` (type de ressource, atelier socle associé le cas échéant) — pas de contenu inventé, pas de nouvelles ressources ajoutées (le module 1 en a 6, 2 restent écartées pour leur sensibilité, décision de l'itération 1).
+- **Modifications** :
+  - `frontend/src/app/contenu.ts` — `Media` gagne un champ `detail` (texte réel, par ressource).
+  - `frontend/src/app/contenu.test.ts` — fixtures mises à jour avec `detail` (pas de nouveau test : pas de nouvelle logique, juste une donnée).
+  - `frontend/src/app/page.tsx` — chaque ressource devient un bouton dépliant, état `mediaOuvert`.
+  - `frontend/src/app/page.module.css` — ajout de `.mediaDetail`.
+- Revérifié : `npm test` (2 tests, vert), `verifier-deployabilite.sh` (aucune borne), `/health`/`/sante` en `200`, `signaler-version.sh 5` accepté.
+
 ---
 
 ## Itération 2 : on choisit un persona avant d'entrer sur l'application

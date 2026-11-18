@@ -2,9 +2,9 @@ import { describe, expect, it } from "vitest";
 import { getMediasDuParcours, type Media } from "./contenu";
 
 const medias: Media[] = [
-  { id: "a", parcoursId: "bba", titre: "Ressource A" },
-  { id: "b", parcoursId: "bib", titre: "Ressource B" },
-  { id: "c", parcoursId: "bba", titre: "Ressource C" },
+  { id: "a", parcoursId: "bba", titre: "Ressource A", detail: "Détail A" },
+  { id: "b", parcoursId: "bib", titre: "Ressource B", detail: "Détail B" },
+  { id: "c", parcoursId: "bba", titre: "Ressource C", detail: "Détail C" },
 ];
 
 describe("getMediasDuParcours", () => {

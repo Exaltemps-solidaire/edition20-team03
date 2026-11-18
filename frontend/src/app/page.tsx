@@ -6,6 +6,7 @@ import { MEDIAS, PARCOURS, PARCOURS_RECOMMANDE, type ParcoursId } from "./conten
 
 export default function Home() {
   const [parcoursOuvert, setParcoursOuvert] = useState<ParcoursId | null>(null);
+  const [mediaOuvert, setMediaOuvert] = useState<string | null>(null);
 
   return (
     <div className={styles.page}>
@@ -17,11 +18,22 @@ export default function Home() {
       <section className={styles.section}>
         <h2>Vos ressources</h2>
         <ul className={styles.medias}>
-          {MEDIAS.map((media) => (
-            <li key={media.id} className={styles.media}>
-              {media.titre}
-            </li>
-          ))}
+          {MEDIAS.map((media) => {
+            const estOuvert = mediaOuvert === media.id;
+            return (
+              <li key={media.id} className={styles.media}>
+                <button
+                  type="button"
+                  className={styles.parcoursToggle}
+                  onClick={() => setMediaOuvert(estOuvert ? null : media.id)}
+                  aria-expanded={estOuvert}
+                >
+                  {media.titre}
+                </button>
+                {estOuvert && <p className={styles.mediaDetail}>{media.detail}</p>}
+              </li>
+            );
+          })}
         </ul>
       </section>
 

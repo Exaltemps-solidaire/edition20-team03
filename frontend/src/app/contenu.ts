@@ -12,6 +12,7 @@ export type Media = {
   id: string;
   parcoursId: ParcoursId;
   titre: string;
+  detail: string;
 };
 
 export const PARCOURS: Parcours[] = [
@@ -31,10 +32,30 @@ export const PARCOURS: Parcours[] = [
 // Source : documents-association/focus-parcours-bba-bib.pdf.
 // Sélection neutre : les ressources les plus sensibles (RQTH, idées noires) sont écartées pour cette démo.
 export const MEDIAS: Media[] = [
-  { id: "comprendre-mon-burn-out", parcoursId: "bba", titre: "Qu'est-ce que le burn-out ? / Comprendre mon burn-out" },
-  { id: "phases-reconstruction", parcoursId: "bba", titre: "Les phases de reconstruction post burn-out" },
-  { id: "acteurs-prise-en-charge", parcoursId: "bba", titre: "Les acteurs de la prise en charge" },
-  { id: "burn-out-parental", parcoursId: "bba", titre: "Burn-out parental" },
+  {
+    id: "comprendre-mon-burn-out",
+    parcoursId: "bba",
+    titre: "Qu'est-ce que le burn-out ? / Comprendre mon burn-out",
+    detail: "Vidéo, prérequis avant les ateliers socles. Atelier associé : 1.1 Comprendre mon burn-out (en visio ou en présentiel).",
+  },
+  {
+    id: "phases-reconstruction",
+    parcoursId: "bba",
+    titre: "Les phases de reconstruction post burn-out",
+    detail: "Vidéo, prérequis avant les ateliers socles. Atelier associé : 1.2 Mon chemin de rétablissement — « Les chemins de rétablissement : mobiliser des ressources autour de soi » (en visio ou en présentiel).",
+  },
+  {
+    id: "acteurs-prise-en-charge",
+    parcoursId: "bba",
+    titre: "Les acteurs de la prise en charge",
+    detail: "Vidéo, prérequis avant les ateliers socles (en cours de production).",
+  },
+  {
+    id: "burn-out-parental",
+    parcoursId: "bba",
+    titre: "Burn-out parental",
+    detail: "Vidéo, ressource optionnelle.",
+  },
 ];
 
 // Le questionnaire de stade n'est pas encore codé (itération ultérieure) :
