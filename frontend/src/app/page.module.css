@@ -1,0 +1,93 @@
+/* Page desktop uniquement (pas de mobile-first) : largeur fixe, pas de media queries de repli. */
+
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  width: 960px;
+  margin: 0 auto;
+  padding: 60px 0;
+  font-family: var(--font-geist-sans);
+  color: #1a1a1a;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.association {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #8a3b5c;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 32px;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.section h2 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.medias {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.media {
+  padding: 16px 20px;
+  border-radius: 8px;
+  background: #faf2f6;
+  border: 1px solid #ecd9e2;
+}
+
+.parcoursListe {
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+}
+
+.parcoursCard {
+  position: relative;
+  flex: 1;
+  padding: 24px;
+  border-radius: 12px;
+  border: 1px solid #e3e3e3;
+}
+
+.parcoursCard h3 {
+  margin: 12px 0 8px;
+  font-size: 20px;
+}
+
+.parcoursCard p {
+  margin: 0;
+  color: #555;
+}
+
+.badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: #8a3b5c;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+}
