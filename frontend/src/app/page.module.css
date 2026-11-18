@@ -7,8 +7,9 @@
   width: 960px;
   margin: 0 auto;
   padding: 60px 0;
-  font-family: var(--font-geist-sans);
-  color: #1a1a1a;
+  font-family: var(--font-libre-franklin);
+  color: #23262f;
+  background: #fff8f4;
 }
 
 .header {
@@ -23,12 +24,13 @@
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #8a3b5c;
+  color: #dc3129;
 }
 
 .header h1 {
   margin: 0;
   font-size: 32px;
+  color: #dc3129;
 }
 
 .section {
@@ -40,6 +42,7 @@
 .section h2 {
   margin: 0;
   font-size: 20px;
+  color: #dc3129;
 }
 
 .medias {
@@ -54,8 +57,8 @@
 .media {
   padding: 16px 20px;
   border-radius: 8px;
-  background: #faf2f6;
-  border: 1px solid #ecd9e2;
+  background: #ffffff;
+  border: 1px solid #ffb4aa;
 }
 
 .parcoursListe {
@@ -69,24 +72,40 @@
   flex: 1;
   padding: 24px;
   border-radius: 12px;
-  border: 1px solid #e3e3e3;
+  background: #ffffff;
+  border: 1px solid #ffb4aa;
 }
 
 .parcoursCard h3 {
   margin: 12px 0 8px;
   font-size: 20px;
+  color: #dc3129;
 }
 
-.parcoursCard p {
-  margin: 0;
-  color: #555;
+.parcoursToggle {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: none;
+  background: none;
+  text-align: left;
+  cursor: pointer;
+}
+
+.parcoursDetail {
+  margin-top: 8px;
+}
+
+.parcoursDetail p {
+  margin: 0 0 12px;
+  color: #23262f;
 }
 
 .badge {
   display: inline-block;
   padding: 4px 12px;
   border-radius: 999px;
-  background: #8a3b5c;
+  background: #dc3129;
   color: #fff;
   font-size: 13px;
   font-weight: 600;

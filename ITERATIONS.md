@@ -66,6 +66,62 @@ Rescopée le 2026-11-18 à la demande du développeur (la version précédente, 
 
 ---
 
+## Itération 1bis : l'écran reprend la charte graphique de l'association
+
+Insérée le 2026-11-18 à la demande du développeur, avant l'itération 2 (son choix explicite : l'écran actuel est ce qui sera montré au prochain tour de test). ⚠️ Temps restant annoncé au moment de la demande : **10 minutes seulement** — traitée comme la dernière itération possible avant stabilisation, en ne touchant qu'au design (aucune nouvelle fonctionnalité, aucun fichier hors `frontend/src/app/`).
+
+Source de la charte : page publique `https://lesburn-ettes.com/lburn/` (variables de thème `--gcid-*` déclarées dans le HTML servi) :
+- Primaire/titres/liens : `#DC3129`
+- Secondaire/accents : `#FFB4AA`
+- Texte : `#23262F`
+- Fond doux : `#FFF8F4`
+- Police : Libre Franklin (Google Fonts, variable)
+
+- **Dans le périmètre** : couleurs et police de `frontend/src/app/page.module.css` et `layout.tsx` (remplace les polices Geist par défaut). Aucun changement de contenu ni de structure d'écran.
+- **Hors périmètre** : logo de l'association (non repris, pas fourni dans la passation), charte appliquée aux futurs écrans (à faire au fil des prochaines itérations).
+- **Critères d'acceptation** :
+  - Étant donné l'écran déployé, quand on l'ouvre, alors les titres et le badge « Recommandé pour vous » sont en rouge `#DC3129`, le texte en `#23262F`, le fond en `#FFF8F4`.
+  - Étant donné l'écran déployé, alors la police affichée est Libre Franklin (plus Geist).
+- **Codage estimé** : 5 minutes (changement CSS/police seul, pas de nouvelle logique).
+- **Fichiers touchés** : `frontend/src/app/layout.tsx`, `frontend/src/app/page.module.css`.
+- **Tests unitaires** : aucun nouveau — pas de logique métier ajoutée (changement purement visuel), `npm test` revérifié, toujours au vert.
+- **Bilan** :
+  - **Durée de codage réelle** : <1 minute mesurée par le chrono (`.iterations/1b.debut`/`.fin`), déploiement inclus quasi immédiat car la plateforme était déjà chaude (registre authentifié, images en cache).
+  - **Fait** : les 2 critères sont satisfaits, vérifié directement dans le CSS compilé servi (`curl` sur les chunks `/_next/static/chunks/*.css`).
+  - **Reporté** : logo de l'association, application de la charte aux écrans à venir (itération 2 et suivantes).
+  - **Harnais** : rien de bloqué — `verifier-deployabilite.sh` et `npm test` au vert, `signaler-version.sh 2` accepté du premier coup.
+  - **Modifications** :
+    - `frontend/src/app/layout.tsx` — police Geist/Geist Mono remplacée par Libre Franklin (`next/font/google`).
+    - `frontend/src/app/page.module.css` — couleurs remplacées par la charte de l'association (texte, titres, fond, bordures des cartes, badge).
+
+---
+
+## Itération 1ter : chaque cadre de parcours s'ouvre pour montrer son descriptif et ses ressources
+
+Insérée le 2026-11-18 à la demande du développeur, après confirmation explicite par lui que l'affichage « sombre » qu'il voyait relevait du mode sombre de son propre navigateur (hors périmètre, non touché). ✂️ Tension signalée : le `CLAUDE.md` recommande qu'à moins de 10 minutes restantes, l'itération serve à stabiliser le pitch plutôt qu'à ajouter du périmètre — traitée comme telle (changement minimal, aucune dépendance nouvelle, un seul écran touché), à la place d'une pause stabilisation pure.
+
+⚠️ Temps restant annoncé au moment de la demande : **moins de 10 minutes**.
+
+- **Dans le périmètre** : rendre les cartes BBA/BIB cliquables ; au clic, affichage du descriptif (déjà présent dans les données) et, s'il y en a, des ressources du parcours (réutilise `getMediasDuParcours`, déjà réel pour BBA module 1).
+- **Hors périmètre** : ressources réelles pour BIB (non extraites du PDF — par décision explicite du développeur, BIB n'affiche que son descriptif, pas de liste vide ni de contenu inventé) ; logo et mode sombre (signalés par le développeur comme non liés à l'application).
+- **Critères d'acceptation** :
+  - Étant donné l'écran déployé, quand on clique sur une carte de parcours, alors son descriptif s'affiche (il est masqué par défaut).
+  - Étant donné la carte BBA ouverte, alors les 4 ressources réelles du module 1 s'affichent sous le descriptif.
+  - Étant donné la carte BIB ouverte, alors son descriptif s'affiche sans section ressources (aucune donnée réelle disponible).
+- **Codage estimé** : 3 minutes (état local + réutilisation des données et de la fonction existantes, pas de nouvelle donnée).
+- **Fichiers touchés** : `frontend/src/app/page.tsx`, `frontend/src/app/page.module.css`.
+- **Tests unitaires** : aucun nouveau — pas de nouvelle logique métier (le filtrage est déjà couvert par les tests de `getMediasDuParcours` ; le bascule d'affichage est de l'état d'UI pur, pas une règle de calcul).
+- **Bilan** :
+  - **Durée de codage réelle** : <1 minute mesurée (`.iterations/1ter.debut`/`.fin`).
+  - **Fait** : les 3 critères sont satisfaits, vérifiés via le HTML servi (`curl localhost:8080/`) : cartes fermées par défaut (`aria-expanded="false"`), descriptif et liste masqués tant qu'on n'a pas cliqué.
+  - **Reporté** : ressources réelles de BIB (nécessite de relire le PDF, modules 4-6), déjà prévu en « À venir ».
+  - **Harnais** : rien de bloqué — `verifier-deployabilite.sh` → aucune borne, `npm test` → toujours au vert (2 tests), `signaler-version.sh 3` accepté du premier coup. `/health` et `/sante` revérifiés en `200` sur 8080, `/health` sur 8081.
+  - **Modifications** :
+    - `frontend/src/app/page.tsx` — composant passé en `"use client"`, état `parcoursOuvert` (useState), carte transformée en bouton dépliant un bloc descriptif + ressources au clic.
+    - `frontend/src/app/page.module.css` — ajout de `.parcoursToggle` (bouton sans style) et `.parcoursDetail`.
+
+---
+
 ## Itération 2 : on choisit un persona avant d'entrer sur l'application
 
 - **Dans le périmètre** :
