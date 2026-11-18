@@ -2,11 +2,10 @@
 
 import { useState } from "react";
 import styles from "./page.module.css";
-import { MEDIAS, PARCOURS, PARCOURS_RECOMMANDE, getMediasDuParcours, type ParcoursId } from "./contenu";
+import { MEDIAS, PARCOURS, PARCOURS_RECOMMANDE, type ParcoursId } from "./contenu";
 
 export default function Home() {
   const [parcoursOuvert, setParcoursOuvert] = useState<ParcoursId | null>(null);
-  const mediasRecommandes = getMediasDuParcours(PARCOURS_RECOMMANDE, MEDIAS);
 
   return (
     <div className={styles.page}>
@@ -18,7 +17,7 @@ export default function Home() {
       <section className={styles.section}>
         <h2>Vos ressources</h2>
         <ul className={styles.medias}>
-          {mediasRecommandes.map((media) => (
+          {MEDIAS.map((media) => (
             <li key={media.id} className={styles.media}>
               {media.titre}
             </li>
@@ -31,7 +30,6 @@ export default function Home() {
         <div className={styles.parcoursListe}>
           {PARCOURS.map((parcours) => {
             const estOuvert = parcoursOuvert === parcours.id;
-            const mediasDuParcours = getMediasDuParcours(parcours.id, MEDIAS);
             return (
               <article key={parcours.id} className={styles.parcoursCard}>
                 {parcours.id === PARCOURS_RECOMMANDE && (
@@ -48,15 +46,6 @@ export default function Home() {
                 {estOuvert && (
                   <div className={styles.parcoursDetail}>
                     <p>{parcours.description}</p>
-                    {mediasDuParcours.length > 0 && (
-                      <ul className={styles.medias}>
-                        {mediasDuParcours.map((media) => (
-                          <li key={media.id} className={styles.media}>
-                            {media.titre}
-                          </li>
-                        ))}
-                      </ul>
-                    )}
                   </div>
                 )}
               </article>

@@ -120,6 +120,17 @@ Insérée le 2026-11-18 à la demande du développeur, après confirmation expli
     - `frontend/src/app/page.tsx` — composant passé en `"use client"`, état `parcoursOuvert` (useState), carte transformée en bouton dépliant un bloc descriptif + ressources au clic.
     - `frontend/src/app/page.module.css` — ajout de `.parcoursToggle` (bouton sans style) et `.parcoursDetail`.
 
+❗️ **Correction post-publication (même itération, signalée par le développeur après test)** : le clic ne faisait rien. Cause réelle : `frontend/nginx.conf` posait une CSP `default-src 'self'` sans `script-src`, ce qui bloquait les scripts inline que Next.js injecte pour l'hydratation React — aucun gestionnaire de clic ne s'activait nulle part sur la page, pas seulement sur les cartes. Corrigé en ajoutant `script-src 'self' 'unsafe-inline'` à la CSP.
+
+À cette occasion, deux ajustements demandés par le développeur :
+- La section générale « Vos ressources » affiche désormais **toutes** les ressources accessibles (`MEDIAS` en entier), plus seulement celles du parcours recommandé ; le détail dépliable d'une carte de parcours ne montre plus que son descriptif (la liste de ressources imbriquée est retirée, pour éviter le doublon avec la section générale).
+- `frontend/src/app/globals.css` : le thème est figé en clair (`color-scheme: light`, retrait des règles `prefers-color-scheme: dark`) — le fond autour du contenu (960px centré) suivait jusque-là le thème système du visiteur et pouvait apparaître noir ; il est désormais blanc quel que soit le réglage du navigateur.
+- **Modifications supplémentaires** :
+  - `frontend/nginx.conf` — ajout de `script-src 'self' 'unsafe-inline'` à la CSP.
+  - `frontend/src/app/globals.css` — suppression des règles `prefers-color-scheme: dark`, thème figé en clair.
+  - `frontend/src/app/page.tsx` — « Vos ressources » liste `MEDIAS` en entier ; détail de carte réduit au descriptif seul.
+- Revérifié : `npm test` (2 tests, vert), `verifier-deployabilite.sh` (aucune borne), `/health` et `/sante` en `200` sur 8080, `signaler-version.sh 4` accepté.
+
 ---
 
 ## Itération 2 : on choisit un persona avant d'entrer sur l'application
